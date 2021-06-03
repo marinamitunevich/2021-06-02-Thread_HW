@@ -2,19 +2,20 @@ package telran;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Game implements Runnable{
     int loopNumber;
     Auto auto;
     List<Long> list;
     long timeOfGame;
+    private List<ResultInfo> resultInfoList;
 
 
 
-    public Game(int loopNumber, Auto auto) {
+    public Game(int loopNumber, Auto auto, List<ResultInfo> resultInfo) {
         this.loopNumber = loopNumber;
         this.auto = auto;
+        this.resultInfoList = resultInfo;
         list = new ArrayList<>();
         timeOfGame = 0;
     }
@@ -61,9 +62,12 @@ public class Game implements Runnable{
 
             System.out.println("Auto: "+auto.getName()+" loop nr: " + i+" loop time: "+timeOfLoop);
         }
+        timeOfGame = countOfPitStops + countOfLoops;
+        ResultInfo resultInfo = new ResultInfo(auto.getName(), loopNumber,timeOfGame);
+        resultInfoList.add(resultInfo);
 
         System.out.println("++++++++++++++++++++++++++++++++++++++++++");
-        timeOfGame = countOfPitStops + countOfLoops;
+
 
     }
 }
